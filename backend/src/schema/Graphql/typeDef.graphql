@@ -1,0 +1,26 @@
+type User {
+  email: String!
+  isValid: Boolean!
+}
+type Event {
+  title: String!
+
+  price: Float!
+  quantity: Int!
+  date: String!
+}
+type Query {
+  allUsers: [User!]!
+  getAllEvents: [Event]
+}
+type UserAuth {
+  result: Boolean!
+  errorMsg: String
+  token: String
+  isValid: String
+}
+type Mutation {
+  buyTicket: Boolean!
+  login(email: String!, password: String!): UserAuth!
+  signup(email: String, password: String): UserAuth!
+}
