@@ -26,11 +26,11 @@ model Events {
 }
 
 model Orders {
-  id         Int      @id @default(autoincrement())
-  userId     Int
-  eventId    Int
-  quantity   Int
-  createdAt  DateTime @default(now())
-  email      String
-  totalPrice Float
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  eventId   Int
+  quantity  Int
+  createdAt DateTime @default(now())
+  email     String
+  confirmed Boolean  @default(false)
 }

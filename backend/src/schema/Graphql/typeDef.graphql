@@ -23,4 +23,8 @@ type Mutation {
   buyTicket: Boolean!
   login(email: String!, password: String!): UserAuth!
   signup(email: String, password: String): UserAuth!
+  activateAccount(token: String!): Boolean!
+  requestCode: Boolean!
+  checkBuyCode(code: String): Boolean!
+  order(email: String!, eventId: Int!, quantity: Int!): Boolean!
 }

@@ -11,8 +11,9 @@ export default async (
       return {
         email,
         isValid: e.isValid,
-        token: setToken({ email, isValid: e.isValid }),
+        token: setToken({ email, isValid: e.isValid, id: e.id }),
         result: true,
+        id: e.id,
       };
     }
     return { result: false };
