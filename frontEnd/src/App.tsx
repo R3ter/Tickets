@@ -12,6 +12,17 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Header from "./components/Header/Header";
 import LoginPage from "./pages/LoginPage";
 import SignUpPage from "./pages/SignUpPage";
+import {
+  ApolloClient,
+  InMemoryCache,
+  ApolloProvider,
+  gql,
+} from "@apollo/client";
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000/",
+  cache: new InMemoryCache(),
+});
 
 const router = createBrowserRouter([
   { path: "/login", element: <LoginPage /> },
@@ -25,7 +36,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <ChakraBaseProvider theme={chakraTheme}>
-      <RouterProvider router={router} />
+      <ApolloProvider client={client}>
+        <RouterProvider router={router} />
+      </ApolloProvider>
     </ChakraBaseProvider>
   );
 }

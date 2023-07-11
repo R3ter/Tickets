@@ -18,6 +18,8 @@ import { Field, Form, Formik, useField } from "formik";
 import { useState } from "react";
 import Popup from "../Popup/Popup";
 import ValidateCode from "../ValidateCode/ValidateCode";
+import { useMutation } from "@apollo/client";
+import { BuyTicket } from "../../gql/Mutations";
 
 interface IProps {
   formValue: {
@@ -32,14 +34,22 @@ const validateEmail = (email: string) => {
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     );
 };
-export default function ({ close }: { close: () => void }) {
+export default function ({
+  close,
+  eventId,
+}: {
+  close: () => void;
+  eventId: string;
+}) {
   const [inputEmail, setInputEmail] = useState("");
   const handleInputChange = (e: any) => setInputEmail(e.target.value);
   const [numError, setNumError] = useState("");
-
+  const [mutateFun, { data, loading }] = useMutation(BuyTicket);
   const isError = {
     email: !validateEmail(inputEmail),
   };
+  if (data) {
+  }
   return (
     <Stack spacing={3}>
       <Formik
@@ -51,6 +61,9 @@ export default function ({ close }: { close: () => void }) {
             setNumError("");
           }
           //   if (!numError && !isError.email) close();
+          mutateFun({
+            variables: { email: values.email, quantity: values.num, eventId },
+          });
         }}
       >
         {(props) => (
@@ -123,6 +136,7 @@ export default function ({ close }: { close: () => void }) {
             </Field>
             <ModalFooter>
               <Popup
+                eventId={eventId}
                 secondary
                 title="Validation"
                 Form={ValidateCode}

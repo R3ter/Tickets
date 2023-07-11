@@ -8,12 +8,12 @@ import getAllEvents from "./query/getAllEvents";
 export default {
   Query: {
     getAllEvents,
+    requestCode,
   },
   Mutation: {
     activateAccount,
     login,
     signup,
-    requestCode,
     checkBuyCode,
     order,
   },

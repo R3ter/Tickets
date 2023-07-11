@@ -10,7 +10,7 @@ totp.options = { step: 100, digits: 4 };
 
 export default async (
   _: any,
-  args: any,
+  { email }: any,
   {
     prisma,
     req: { headers },
@@ -20,9 +20,9 @@ export default async (
   if (token === "" && Array.isArray(token)) {
     return false;
   }
-  const deToken = await checkToken(token as string);
-  if (!deToken) return false;
-  const { email } = deToken;
+  // const deToken = await checkToken(token as string);
+  // if (!deToken) return false;
+  // const { email } = deToken;
 
   if (!email || !isEmail(email)) {
     return false;
@@ -58,12 +58,12 @@ export const checkBuyCode = async (
     req: { headers },
   }: { prisma: PrismaClient; req: { headers: IncomingHttpHeaders } }
 ) => {
-  const token = headers["token"];
-  const deToken = await checkToken(token as string);
-  if (deToken) {
-    
-    return totp.verify({ token: code, secret: secret + token });
-  }
+  // const token = headers["token"];
+  // const deToken = await checkToken(token as string);
+  // if (deToken) {
+
+  return totp.verify({ token: code, secret: secret + "token" });
+  // }
 
   return false;
 };

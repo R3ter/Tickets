@@ -3,15 +3,12 @@ type User {
   isValid: Boolean!
 }
 type Event {
+  id: Int!
   title: String!
-
+  description: String!
   price: Float!
   quantity: Int!
   date: String!
-}
-type Query {
-  allUsers: [User!]!
-  getAllEvents: [Event]
 }
 type UserAuth {
   result: Boolean!
@@ -19,12 +16,16 @@ type UserAuth {
   token: String
   isValid: String
 }
+type Query {
+  allUsers: [User!]!
+  getAllEvents: [Event]
+  requestCode(email: String!): Boolean!
+}
 type Mutation {
   buyTicket: Boolean!
   login(email: String!, password: String!): UserAuth!
   signup(email: String, password: String): UserAuth!
   activateAccount(token: String!): Boolean!
-  requestCode: Boolean!
   checkBuyCode(code: String): Boolean!
   order(email: String!, eventId: Int!, quantity: Int!): Boolean!
 }

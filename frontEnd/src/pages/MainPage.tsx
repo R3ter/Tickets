@@ -21,9 +21,7 @@ export default () => {
           marginTop: "50px",
         }}
       >
-        {[0, 0, 0].map(() => (
-          <Ticket />
-        ))}
+        <Ticket />
       </div>
     </div>
   );

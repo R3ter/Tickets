@@ -18,12 +18,16 @@ export default ({
   Form,
   title = "Buy Ticket",
   canOpen = () => true,
+  eventId,
+  loading = false,
 }: {
   canOpen?: () => boolean;
   Form: any;
   title?: string;
   secondary?: boolean;
   style?: React.CSSProperties;
+  loading?: boolean;
+  eventId: string;
 }) => {
   const OverlayOne = () => (
     <ModalOverlay
@@ -37,6 +41,7 @@ export default ({
   return (
     <>
       <Button
+        isLoading={loading}
         onClick={() => {
           if (canOpen()) onOpen();
         }}
@@ -54,7 +59,7 @@ export default ({
           <ModalHeader>{title}</ModalHeader>
           <ModalCloseButton />
           <ModalBody>
-            <Form close={onClose} open={onOpen} />
+            <Form close={onClose} open={onOpen} eventId={eventId} />
           </ModalBody>
         </ModalContent>
       </Modal>
